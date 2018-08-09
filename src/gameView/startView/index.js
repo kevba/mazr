@@ -25,6 +25,14 @@ class StartView extends React.Component {
         this.canvasRef = React.createRef();
     }
 
+    componentWillMount() {
+        document.addEventListener("keydown", (e) => {this.handleKeyPress(e)}, false)
+    }
+
+    componentWillUnmount() {
+        document.removeEventListener("keydown", (e) => {this.handleKeyPress(e)}, false)
+    }
+
     componentDidMount() {
         this.renderOther();
     }
@@ -54,8 +62,7 @@ class StartView extends React.Component {
                     id="start-view"
                     width={width}
                     height={height}
-                    ref={this.canvasRef}
-                    onKeyDown={e => this.handleKeyPress(e)} tabIndex="0" />
+                    ref={this.canvasRef} />
             </div>
         );
     }

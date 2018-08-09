@@ -24,14 +24,20 @@ class GameView extends React.Component {
     constructor(props) {
         super(props);
         this.canvasRef = React.createRef();
-        this.state = {
-            allowControls: true,
-        };
+    }
+
+    componentWillMount() {
+        document.addEventListener("keydown", (e) => {this.handleKeyPress(e)}, false)
+    }
+
+    componentWillUnmount() {
+        document.removeEventListener("keydown", (e) => {this.handleKeyPress(e)}, false)
     }
 
     componentDidMount() {
         this.switchLevel();
         this.renderOther();
+
     }
 
     componentDidUpdate() {
@@ -45,10 +51,6 @@ class GameView extends React.Component {
     }
 
     handleKeyPress(e) {
-        if (!this.state.allowControls) {
-            return;
-        }
-
         switch (e.key) {
         case 'ArrowRight':
             this.props.actions.move('right');
@@ -78,8 +80,7 @@ class GameView extends React.Component {
                     id="game-field"
                     width={width}
                     height={height}
-                    ref={this.canvasRef}
-                    onKeyDown={e => this.handleKeyPress(e)} tabIndex="0" />
+                    ref={this.canvasRef} />
             </div>
         );
     }

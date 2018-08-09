@@ -52451,13 +52451,28 @@ var GameView = function (_React$Component) {
         var _this = _possibleConstructorReturn(this, (GameView.__proto__ || Object.getPrototypeOf(GameView)).call(this, props));
 
         _this.canvasRef = _react2.default.createRef();
-        _this.state = {
-            allowControls: true
-        };
         return _this;
     }
 
     _createClass(GameView, [{
+        key: 'componentWillMount',
+        value: function componentWillMount() {
+            var _this2 = this;
+
+            document.addEventListener("keydown", function (e) {
+                _this2.handleKeyPress(e);
+            }, false);
+        }
+    }, {
+        key: 'componentWillUnmount',
+        value: function componentWillUnmount() {
+            var _this3 = this;
+
+            document.removeEventListener("keydown", function (e) {
+                _this3.handleKeyPress(e);
+            }, false);
+        }
+    }, {
         key: 'componentDidMount',
         value: function componentDidMount() {
             this.switchLevel();
@@ -52479,10 +52494,6 @@ var GameView = function (_React$Component) {
     }, {
         key: 'handleKeyPress',
         value: function handleKeyPress(e) {
-            if (!this.state.allowControls) {
-                return;
-            }
-
             switch (e.key) {
                 case 'ArrowRight':
                     this.props.actions.move('right');
@@ -52503,8 +52514,6 @@ var GameView = function (_React$Component) {
     }, {
         key: 'render',
         value: function render() {
-            var _this2 = this;
-
             var _props$canvas = this.props.canvas,
                 height = _props$canvas.height,
                 width = _props$canvas.width;
@@ -52519,10 +52528,7 @@ var GameView = function (_React$Component) {
                     id: 'game-field',
                     width: width,
                     height: height,
-                    ref: this.canvasRef,
-                    onKeyDown: function onKeyDown(e) {
-                        return _this2.handleKeyPress(e);
-                    }, tabIndex: '0' })
+                    ref: this.canvasRef })
             );
         }
     }, {
@@ -52875,6 +52881,24 @@ var StartView = function (_React$Component) {
     }
 
     _createClass(StartView, [{
+        key: 'componentWillMount',
+        value: function componentWillMount() {
+            var _this2 = this;
+
+            document.addEventListener("keydown", function (e) {
+                _this2.handleKeyPress(e);
+            }, false);
+        }
+    }, {
+        key: 'componentWillUnmount',
+        value: function componentWillUnmount() {
+            var _this3 = this;
+
+            document.removeEventListener("keydown", function (e) {
+                _this3.handleKeyPress(e);
+            }, false);
+        }
+    }, {
         key: 'componentDidMount',
         value: function componentDidMount() {
             this.renderOther();
@@ -52898,8 +52922,6 @@ var StartView = function (_React$Component) {
     }, {
         key: 'render',
         value: function render() {
-            var _this2 = this;
-
             var _props$canvas = this.props.canvas,
                 height = _props$canvas.height,
                 width = _props$canvas.width;
@@ -52914,10 +52936,7 @@ var StartView = function (_React$Component) {
                     id: 'start-view',
                     width: width,
                     height: height,
-                    ref: this.canvasRef,
-                    onKeyDown: function onKeyDown(e) {
-                        return _this2.handleKeyPress(e);
-                    }, tabIndex: '0' })
+                    ref: this.canvasRef })
             );
         }
     }, {
