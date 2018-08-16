@@ -1,7 +1,7 @@
 // const webpack = require('webpack');
 const path = require('path');
 
-// const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 /*
  * We've enabled UglifyJSPlugin for you! This minifies your app
@@ -58,6 +58,7 @@ module.exports = {
         //     sourceMap: true,
         //     parallel: true,
         //     uglifyOptions: {
+        //         comments: false,
         //         warnings: false,
         //         screw_ie8: true,
         //         conditionals: true,

@@ -20,7 +20,7 @@ const styles = () => ({
 });
 
 
-class GameView extends React.Component {
+class BoardView extends React.Component {
     constructor(props) {
         super(props);
         this.canvasRef = React.createRef();
@@ -37,7 +37,6 @@ class GameView extends React.Component {
     componentDidMount() {
         this.switchLevel();
         this.renderOther();
-
     }
 
     componentDidUpdate() {
@@ -111,4 +110,4 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default withStyles(styles)(connect(mapStateToProps, mapDispatchToProps)(GameView));
+export default withStyles(styles)(connect(mapStateToProps, mapDispatchToProps)(BoardView));

@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 
 import {withStyles} from '@material-ui/core/styles';
 
-import renderNextLevelScreen from './renderNextLevelScreen';
+import renderNextLevelScreen from 'src/render/renderNextLevelScreen';
 
 import {setRun} from 'src/actions/run.js';
 

@@ -100,25 +100,25 @@ const renderVisibilityRadius = (ctx, visibility, player, scale) => {
     );
 };
 
-const renderLevel = (ctx, level, player, canvas, scale) => {
+const renderLevel = (ctx, level, player, canvas) => {
     renderFog(ctx, level.visibility, canvas);
-    renderPaths(ctx, level, player, scale);
+    renderPaths(ctx, level, player, canvas.scale);
 
     for (let w of level.walls) {
         if (withinVisibilyRange(player, level, w.position.x, w.position.y)) {
-            renderWall(ctx, w, scale);
+            renderWall(ctx, w, canvas.scale);
         }
     }
 
     if (withinVisibilyRange(player, level, level.exit.position.x, level.exit.position.y)) {
-        renderExit(ctx, level.exit, scale);
+        renderExit(ctx, level.exit, canvas.scale);
     }
 
     if (withinVisibilyRange(player, level, level.entrance.position.x, level.entrance.position.y)) {
-        renderEntrance(ctx, level.entrance, scale);
+        renderEntrance(ctx, level.entrance, canvas.scale);
     }
 
-    renderVisibilityRadius(ctx, level.visibility, player, scale);
+    renderVisibilityRadius(ctx, level.visibility, player, canvas.scale);
 };
 
 export default renderLevel;
