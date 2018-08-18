@@ -1,8 +1,8 @@
 import {hasEdgeCollision, findCollisions} from 'src/logic/collisions';
 import {setLevel} from './level';
-import {setRun} from './run';
+import {setRunState} from './run';
 
-import {LEVEL} from 'src/logic/transitions';
+import {LEVEL_STARTING} from 'src/logic/runStates';
 
 export const SET_POSITION = 'SET_POSITION';
 
@@ -30,7 +30,7 @@ export const moveTo = function(x, y) {
         // Check if the exit has been reached;
         if (findCollisions({x, y}, [exit]) !== undefined) {
             dispatch(setLevel(exit.nextLevel));
-            dispatch(setRun(false));
+            dispatch(setRunState(LEVEL_STARTING));
         }
 
         dispatch(setPosition(x, y));

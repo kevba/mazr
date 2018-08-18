@@ -1,7 +1,7 @@
 // const webpack = require('webpack');
 const path = require('path');
 
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+// const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 /*
  * We've enabled UglifyJSPlugin for you! This minifies your app

@@ -1,5 +1,5 @@
 export const SET_RUN = 'SET_RUNNING';
-export const SET_TRANSITION = 'SET_RUNNING';
+export const SET_RUN_STATE = 'SET_RUN_STATE';
 
 export const setRun = function(run) {
     return {
@@ -8,9 +8,9 @@ export const setRun = function(run) {
     };
 };
 
-export const setTransition = function(transition) {
+export const setRunState = function(state) {
     return {
-        type: SET_TRANSITION,
-        transition
+        type: SET_RUN_STATE,
+        state
     };
 };

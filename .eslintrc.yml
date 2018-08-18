@@ -1,0 +1,175 @@
+parser:
+  babel-eslint
+
+env:
+  browser: true
+  commonjs: true
+  es6: true
+
+parserOptions:
+  sourceType: module
+  ecmaFeatures:
+    jsx: true
+
+plugins:
+  - react
+
+extends:
+  - eslint:recommended
+  - plugin:react/recommended
+
+rules: # http://eslint.org/docs/rules/
+
+  # Possible Errors
+  valid-jsdoc:
+    - 2
+    - requireReturn: false
+      requireParamDescription: false
+      requireReturnDescription: false
+
+  # Best Practices
+  accessor-pairs: 2
+  array-callback-return: 2
+  curly: 2
+  default-case: 2
+  dot-location: [2, property]
+  dot-notation: 2
+  eqeqeq: 2
+  guard-for-in: 2
+  no-alert: 2
+  no-caller: 2
+  no-div-regex: 2
+  no-else-return: 2
+  no-empty-function: 2
+  no-eval: 2
+  no-extend-native: 2
+  no-extra-bind: 2
+  no-floating-decimal: 2
+  no-implicit-coercion: 2
+  no-implied-eval: 2
+  no-invalid-this: 0
+  no-labels: 2
+  no-lone-blocks: 2
+  no-loop-func: 2
+  no-multi-spaces: 2
+  no-multi-str: 2
+  no-native-reassign: 2
+  no-new-func: 2
+  no-new-wrappers: 2
+  no-octal-escape: 2
+  no-return-assign: 2
+  no-script-url: 2
+  no-self-compare: 2
+  no-sequences: 2
+  no-throw-literal: 2
+  no-unmodified-loop-condition: 2
+  no-unused-expressions: 2
+  no-useless-call: 2
+  no-useless-concat: 2
+  no-useless-escape: 2
+  no-void: 2
+  no-with: 2
+  radix: 2
+  yoda: 2
+
+  # Strict Mode
+  strict: [1, never]
+
+  # Variables
+  no-shadow-restricted-names: 2
+  no-undef-init: 1
+  no-use-before-define: 2
+
+  # Stylistic Issues
+  array-bracket-spacing: 1
+  brace-style: 1
+  camelcase: [2, properties: never]
+  comma-spacing: 1
+  comma-style: 1
+  computed-property-spacing: 1
+  eol-last: [1, unix]
+  func-style: 2
+  indent: [1, 4]
+  jsx-quotes: 1
+  key-spacing: 1
+  keyword-spacing: 1
+  linebreak-style: [1, unix]
+  lines-around-comment:
+    - 1
+    - beforeBlockComment: true
+      beforeLineComment: true
+      allowBlockStart: true
+      allowObjectStart: true
+      allowArrayStart: true
+  max-depth: 1
+  max-len:
+    - 1
+    - code: 120
+      ignoreUrls: true
+  max-statements-per-line: [1, max: 2]
+  new-cap: 2
+  new-parens: 1
+  no-lonely-if: 2
+  no-multiple-empty-lines: [1, max: 2]
+  no-nested-ternary: 1
+  no-new-object: 2
+  no-spaced-func: 1
+  no-trailing-spaces: 1
+  no-unneeded-ternary: 1
+  no-whitespace-before-property: 1
+  object-curly-spacing: 1
+  operator-assignment: 1
+  operator-linebreak: 1
+  padded-blocks: [1, never]
+  quote-props: [1, consistent]
+  quotes: [1, single]
+  semi: 2
+  semi-spacing: 1
+  space-before-blocks: 1
+  space-before-function-paren: [1, never]
+  space-in-parens: 1
+  space-unary-ops: 1
+  spaced-comment: 1
+
+  # ECMAScript 6
+  arrow-parens: [1, as-needed]
+  arrow-spacing: 1
+  no-duplicate-imports: [2, includeExports: true]
+  no-var: 2
+  object-shorthand: [1, methods]
+  prefer-arrow-callback: 1
+  prefer-rest-params: 1
+  prefer-spread: 1
+  prefer-template: 1
+  template-curly-spacing: 1
+
+  # React - https://github.com/yannickcr/eslint-plugin-react/#list-of-supported-rules
+  react/forbid-prop-types: 0
+  react/prop-types: 0
+  react/no-multi-comp: 0
+  react/no-string-refs: 2
+  react/prefer-es6-class: 2
+  react/prefer-stateless-function: 0
+  react/require-render-return: 2
+  react/self-closing-comp: 1
+  react/sort-comp:
+    - 1
+    - order:
+        - static-methods
+        - lifecycle
+        - everything-else
+        - /^handle.+$/
+        - render
+        - /^(r|shouldR)ender.+$/
+  react/jsx-wrap-multilines: 1
+
+  # JSX - https://github.com/yannickcr/eslint-plugin-react/#jsx-specific-rules
+  react/jsx-boolean-value: 1
+  react/jsx-closing-bracket-location: [1, after-props]
+  react/jsx-curly-spacing: 1
+  react/jsx-equals-spacing: 1
+  react/jsx-handler-names: 2
+  react/jsx-indent-props: [1, 4]
+  react/jsx-key: 2
+  react/jsx-pascal-case: 2
+  react/jsx-space-before-closing: 1
