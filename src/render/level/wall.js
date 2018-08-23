@@ -6,12 +6,13 @@ const defaultWallStyle = {
 };
 
 class Wall {
-    constructor(wall, style={}) {
-        this.wall = wall;
-        this.style = {defaultWallStyle, ...style};
+    constructor(x, y, scale, style={}) {
+        this.x = x;
+        this.y = y;
+        this.scale = scale;
+        this.style = {...defaultWallStyle, ...style};
         this.height = 1;
         this.width = 1;
-        this.initialRender = true;
     }
 
     update(ctx, wall) {
@@ -22,15 +23,15 @@ class Wall {
     render(ctx) {
         ctx.fillStyle = this.style.wallColor;
         ctx.fillRect(
-            this.wall.position.x * this.scale,
-            this.wall.position.y * this.scale,
+            this.x * this.scale,
+            this.y * this.scale,
             this.height * this.scale,
             this.width * this.scale
         );
         ctx.strokeStyle = this.style.borderColor;
         ctx.strokeRect(
-            this.wall.position.x * this.scale,
-            this.wall.position.y * this.scale,
+            this.x * this.scale,
+            this.y * this.scale,
             this.height * this.scale,
             this.width * this.scale
         );

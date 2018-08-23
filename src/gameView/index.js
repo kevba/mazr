@@ -6,7 +6,7 @@ import {withStyles} from '@material-ui/core/styles';
 import * as playerActions from 'src/actions/player.js';
 import * as runActions from 'src/actions/run.js';
 
-import {loop} from 'src/loop';
+import Level from 'src/render/level';
 
 import {LEVEL_STARTING, LEVEL_RUNNING} from 'src/logic/runStates';
 
@@ -36,17 +36,25 @@ class View extends React.Component {
         let canvas = this.canvasRef.current;
         let ctx = canvas.getContext('2d');
 
-        let mainLoop = () => {
-            loop(ctx, {
-                level: this.props.level,
-                player: this.props.player,
-                canvas: this.props.canvas,
-                runtime: this.props.runtime,
-            });
-            if (this.action !== null) {
-                this.action();
-            }
-            this.action = null;
+        const level = new Level(
+            this.props.canvas.height,
+            this.props.canvas.width,
+            this.props.level,
+            this.props.player,
+            this.props.canvas.scale
+        )
+        let mainLoop = (time) => {
+            level.update(ctx, this.props.player, time)
+            // loop(ctx, {
+            //     level: this.props.level,
+            //     player: this.props.player,
+            //     canvas: this.props.canvas,
+            //     runtime: this.props.runtime,
+            // });
+            // if (this.action !== null) {
+            //     this.action();
+            // }
+            // this.action = null;
 
             // for (let i = this.actions.length - 1; i >= 0; i--) {
             //     this.actions.pop()();
