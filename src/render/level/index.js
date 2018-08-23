@@ -1,7 +1,8 @@
-import {store} from 'src/store';
-import Wall from './wall'
+import Wall from './wall';
+import Entrance from './entrance';
 
 import Player from '../player';
+
 
 const defaultLevelStyle = {
     backgoundColor: '#77f',
@@ -19,12 +20,14 @@ class Level {
         this.scale = scale;
 
         this.visibilityRadius = level.visibility.radius;
+
+        this.entrance = new Entrance(this.level.entrance, scale);
+
+        // An exit looks the ame as an entrance for now.
+        this.exit = new Entrance(this.level.exit, scale);
+
         this.walls = level.walls.map(wall => {
-            return new Wall(
-                wall.position.x,
-                wall.position.y,
-                scale
-            );
+            return new Wall(wall, scale);
         });
     }
 
@@ -45,15 +48,14 @@ class Level {
         return true;
     };
 
-    update(ctx, player, time) {
-        this.render(ctx);
-        this.player.update(ctx, player, false);
-        for (let wall of this.walls) {
-            if (this.withinVisibilyRange(wall.x, wall.y)) {
-                wall.update(ctx, this.level);
-            }
-        }
-        this.renderVisibilityRadius(ctx);
+    update(level, player) {
+        this.level = level;
+
+        this.player.update(player, false);
+
+        // We dont need to update walls, since they can't do anything (yet).
+        this.entrance.update(this.level.entrance);
+        this.exit.update(this.level.exit);
     }
 
     render(ctx) {
@@ -61,13 +63,31 @@ class Level {
         ctx.fillStyle = this.level.visibility.fogColor;
         ctx.fillRect(0, 0, this.height, this.width);
 
+        // The paths
         ctx.fillStyle=this.style.backgoundColor;
         ctx.fillRect(
-            (this.player.x - (this.visibilityRadius+2)) * this.scale,
-            (this.player.y - (this.visibilityRadius+2)) * this.scale,
-            ((this.visibilityRadius+2)*2) * this.scale,
-            ((this.visibilityRadius+2)*2) * this.scale
+            ((this.player.x+0.5) - (this.visibilityRadius+1)) * this.scale,
+            ((this.player.y+0.5) - (this.visibilityRadius+1)) * this.scale,
+            ((this.visibilityRadius+1)*2) * this.scale,
+            ((this.visibilityRadius+1)*2) * this.scale
         );
+
+        for (let wall of this.walls) {
+            if (this.withinVisibilyRange(wall.x, wall.y)) {
+                wall.render(ctx);
+            }
+        }
+
+        if (this.withinVisibilyRange(this.entrance.x, this.entrance.y)) {
+            this.entrance.render(ctx);
+        }
+
+        if (this.withinVisibilyRange(this.exit.x, this.exit.y)) {
+            this.exit.render(ctx);
+        }
+
+        this.renderVisibilityRadius(ctx);
+        this.player.render(ctx);
     }
 
     renderVisibilityRadius(ctx) {
@@ -85,13 +105,12 @@ class Level {
 
         ctx.fillStyle=rGrad;
         ctx.fillRect(
-            (this.player.x - (this.visibilityRadius+2)) * this.scale,
-            (this.player.y - (this.visibilityRadius+2)) * this.scale,
-            ((this.visibilityRadius+2)*2) * this.scale,
-            ((this.visibilityRadius+2)*2) * this.scale
+            ((this.player.x+0.5) - (this.visibilityRadius+1)) * this.scale,
+            ((this.player.y+0.5) - (this.visibilityRadius+1)) * this.scale,
+            ((this.visibilityRadius+1)*2) * this.scale,
+            ((this.visibilityRadius+1)*2) * this.scale
         );
 
-        this.player.render(ctx);
     }
 }
 

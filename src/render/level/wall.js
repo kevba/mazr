@@ -1,23 +1,29 @@
-import {store} from 'src/store';
-
 const defaultWallStyle = {
     wallColor: 'grey',
     borderColor: '#222'
 };
 
 class Wall {
-    constructor(x, y, scale, style={}) {
-        this.x = x;
-        this.y = y;
+    constructor(wall, scale, style={}) {
+        this.wall = wall;
         this.scale = scale;
+
         this.style = {...defaultWallStyle, ...style};
+
         this.height = 1;
         this.width = 1;
     }
 
-    update(ctx, wall) {
+    get x() {
+        return this.wall.position.x;
+    }
+
+    get y() {
+        return this.wall.position.y;
+    }
+
+    update(wall) {
         this.wall = wall;
-        this.render(ctx);
     }
 
     render(ctx) {

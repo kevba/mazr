@@ -3,8 +3,9 @@ import {connect} from 'react-redux';
 
 import {withStyles} from '@material-ui/core/styles';
 
-import * as playerActions from 'src/actions/player.js';
-import * as runActions from 'src/actions/run.js';
+import * as playerActions from 'src/actions/player';
+import * as runActions from 'src/actions/run';
+import {setTime} from 'src/actions/time';
 
 import Level from 'src/render/level';
 
@@ -29,10 +30,6 @@ class View extends React.Component {
     }
 
     componentDidMount() {
-        document.addEventListener('keydown', e => {
-            this.handleKeyPress(e);
-        }, false);
-
         let canvas = this.canvasRef.current;
         let ctx = canvas.getContext('2d');
 
@@ -42,23 +39,13 @@ class View extends React.Component {
             this.props.level,
             this.props.player,
             this.props.canvas.scale
-        )
-        let mainLoop = (time) => {
-            level.update(ctx, this.props.player, time)
-            // loop(ctx, {
-            //     level: this.props.level,
-            //     player: this.props.player,
-            //     canvas: this.props.canvas,
-            //     runtime: this.props.runtime,
-            // });
-            // if (this.action !== null) {
-            //     this.action();
-            // }
-            // this.action = null;
+        );
 
-            // for (let i = this.actions.length - 1; i >= 0; i--) {
-            //     this.actions.pop()();
-            // }
+        let mainLoop = time => {
+            this.props.setTime(time);
+            level.update(this.props.level, this.props.player);
+            level.render(ctx);
+
             requestAnimationFrame(mainLoop);
         };
         requestAnimationFrame(mainLoop);
@@ -68,17 +55,6 @@ class View extends React.Component {
         document.removeEventListener('keydown', e => {
             this.handleKeyPress(e);
         }, false);
-    }
-
-
-    keyPressLevelStarting(e) {
-        switch (e.keyCode) {
-        case 32:
-            this.action = () => this.props.start();
-            break;
-        default:
-            break;
-        }
     }
 
     keyPressLevelRunning(e) {
@@ -142,6 +118,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => {
     return {
         start: () => dispatch(runActions.setRunState(LEVEL_RUNNING)),
+        setTime: t => dispatch(setTime(t)),
         actions: {
             move: direction => dispatch(playerActions.move(direction)),
             moveTo: (x, y) => dispatch(playerActions.moveTo(x, y))
