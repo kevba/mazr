@@ -1,5 +1,8 @@
 import {store} from 'src/store';
 
+import Animation from 'src/render/animation/animation';
+import SpriteSheet from 'src/render/animation/spriteSheet';
+
 import * as actions from 'src/actions/player.js';
 
 
@@ -16,11 +19,14 @@ class Player {
         this.style = {...defaultPlayerStyle, ...style};
 
         this.scale = scale;
+        this.moveDuration = 250;
+        this.lastMoveTime = 0;
 
         // In milliseconds
         // This is also the animation duration limit, if animating movement.
-        this.moveDuration = 0.05*1000;
-        this.lastMoveTime = 0;
+        let playerSprites = new SpriteSheet('img/player.png');
+        this.idleAnimation = new Animation(playerSprites, 1, 50);
+        this.walkAnimation = new Animation(playerSprites, 1, this.moveDuration, 1, 1, 2);
 
         document.addEventListener('keydown', e => {
             this.handleKeyPress(e);
@@ -39,22 +45,20 @@ class Player {
         this.player = player;
     }
 
-    isAllowedMovement() {
-        return store.getState().time.time > this.lastMoveTime + this.moveDuration;
+    isMoving() {
+        return store.getState().time.time < this.lastMoveTime + this.moveDuration;
     }
 
     render(ctx) {
-        ctx.fillStyle = this.style.playerColor;
-        ctx.fillRect(
-            this.x * this.scale,
-            this.y * this.scale,
-            this.height * this.scale,
-            this.width * this.scale
-        );
+        if (this.isMoving()) {
+            this.walkAnimation.play(ctx, this.x, this.y);
+        } else {
+            this.idleAnimation.play(ctx, this.x, this.y);
+        }
     }
 
     handleKeyPress(e) {
-        if (!this.isAllowedMovement()) {
+        if (this.isMoving()) {
             return;
         }
         this.lastMoveTime = store.getState().time.time;
