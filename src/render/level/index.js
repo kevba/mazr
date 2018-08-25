@@ -2,6 +2,7 @@ import Wall from './wall';
 import Entrance from './entrance';
 
 import Player from '../player';
+import Key from '../pickups/key';
 
 
 const defaultLevelStyle = {
@@ -23,11 +24,22 @@ class Level {
 
         this.entrance = new Entrance(this.level.entrance, scale);
 
-        // An exit looks the ame as an entrance for now.
+        // An exit looks the same as an entrance for now.
         this.exit = new Entrance(this.level.exit, scale);
 
         this.walls = level.walls.map(wall => {
             return new Wall(wall, scale);
+        });
+
+        this.pickups = [];
+        this.updatePickups(this.level);
+    }
+
+    updatePickups(level) {
+        level.pickups.forEach(pickup => {
+            if (pickup.type === 'key') {
+                this.pickups.push(new Key(pickup));
+            }
         });
     }
 
@@ -50,6 +62,7 @@ class Level {
 
     update(level, player) {
         this.level = level;
+        this.updatePickups(this.level);
 
         this.player.update(player, false);
 
@@ -75,6 +88,12 @@ class Level {
         for (let wall of this.walls) {
             if (this.withinVisibilyRange(wall.x, wall.y)) {
                 wall.render(ctx);
+            }
+        }
+
+        for (let pickup of this.pickups) {
+            if (this.withinVisibilyRange(pickup.x, pickup.y)) {
+                pickup.render(ctx);
             }
         }
 
@@ -110,7 +129,6 @@ class Level {
             ((this.visibilityRadius+1)*2) * this.scale,
             ((this.visibilityRadius+1)*2) * this.scale
         );
-
     }
 }
 

@@ -19,10 +19,11 @@ class Player {
         this.style = {...defaultPlayerStyle, ...style};
 
         this.scale = scale;
-        this.moveDuration = 250;
-        this.lastMoveTime = 0;
 
         // In milliseconds
+        this.moveDuration = 150;
+        this.lastMoveTime = 0;
+
         // This is also the animation duration limit, if animating movement.
         let playerSprites = new SpriteSheet('img/player.png');
         this.idleAnimation = new Animation(playerSprites, 1, 50);

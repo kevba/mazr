@@ -38,7 +38,10 @@ const level = {
     entrance,
     path: {
         color: '#332200'
-    }
+    },
+    pickups: [
+        {type: 'key', color: 'green', position: {x: 15, y: 5}}
+    ]
 };
 
 export const LEVEL_ONE_ID = 1;
