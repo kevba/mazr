@@ -16,15 +16,17 @@ let walls = [
 
 export const exit = {
     position: {
-        x: 5, y: 5
+        x: 5,
+        y: 5,
     },
     nextLevel: LEVEL_ONE_ID
 };
 
 export const entrance = {
     position: {
-        x: 40, y: 1
-    },
+        x: 40,
+        y: 1
+    }
 };
 
 const level = {

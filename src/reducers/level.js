@@ -1,4 +1,4 @@
-import {SET_LEVEL} from 'src/actions/level';
+import {SET_LEVEL, SET_PICKUPS} from 'src/actions/level';
 
 import levelOne, {LEVEL_ONE_ID} from 'src/levels/1';
 import levelTwo, {LEVEL_TWO_ID} from 'src/levels/2';
@@ -16,6 +16,8 @@ let level = function(state = initialState, action) {
         default:
             return levelOne;
         }
+    case SET_PICKUPS:
+        return {...state, pickups: action.pickups};
     default:
         return state;
     }
